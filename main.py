@@ -15,6 +15,11 @@ from stoat import Client
 load_dotenv()
 
 TOKEN = os.getenv("STOAT_TOKEN")
+# DATABASE = os.getenv(
+#     "DATABASE",
+#     "/app/data/reaction_roles.sqlite3",
+# )
+
 DATABASE = "reaction_roles.sqlite3"
 
 if not TOKEN:
@@ -504,9 +509,11 @@ class ReactionRoleClient(Client):
         
         role_id, role_name = reaction_role
         
+        print("ROLE_ID: ", role_id)
+        print("REACTION_ROLE: ", reaction_role)
+        
         try:
             current_roles = list(member.roles or [])
-
             if add:
                 if role_id not in current_roles:
                     current_roles.append(role_id)
@@ -514,8 +521,9 @@ class ReactionRoleClient(Client):
                 current_roles = [
                     existing_role_id
                     for existing_role_id in current_roles
-                    if existing_role_id != role_id
+                    if existing_role_id.id != role_id
                 ]
+                print("CURRENT_ROLES: ", current_roles)
 
             await self.http.edit_member(
                 server=server,

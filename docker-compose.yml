@@ -1,0 +1,17 @@
+services:
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: reaction-roles-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE: /app/data/reaction_roles.sqlite3
+    volumes:
+      - reaction_roles_data:/app/data
+
+volumes:
+  reaction_roles_data:

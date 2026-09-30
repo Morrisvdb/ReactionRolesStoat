@@ -4,4 +4,5 @@
 /lib64
 .env
 pyvenv.cfg
+.git/
 reaction_roles.sqlite3
