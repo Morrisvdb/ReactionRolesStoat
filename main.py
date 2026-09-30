@@ -5,7 +5,7 @@ import sqlite3
 from contextlib import closing
 
 from dotenv import load_dotenv
-from stoat import Client
+from stoat import Client, Member
 
 
 # ============================================================================
@@ -216,6 +216,11 @@ class ReactionRoleClient(Client):
     async def on_message(self, message, /):
         if message.author_id == self.me.id:
             return
+        
+        author : Member = message.author
+                
+        if author.server_permissions.assign_roles == False:
+            return 
 
         content = (message.content or "").strip()
 
